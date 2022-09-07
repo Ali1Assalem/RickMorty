@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/charactersFragment"
+        android:icon="@drawable/characters"
+        android:title="Characters"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/favoritesFragment"
+        android:icon="@drawable/ic_baseline_favorite_border_24"
+        android:title="Favorites"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/episodesFragment"
+        android:icon="@drawable/episodes"
+        android:title="Episodes"
+        app:showAsAction="ifRoom"/>
+
+</menu>

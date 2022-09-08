@@ -44,9 +44,9 @@ class CharactersRowAdapter : RecyclerView.Adapter<CharactersRowAdapter.MyViewHol
     }
 
     fun setData(newData: CharacterList){
-        val recipesDiffUtil =
+        val charactersDiffUtil =
             CharactersDiffUtil(characters, newData.results)
-        val diffUtilResult = DiffUtil.calculateDiff(recipesDiffUtil)
+        val diffUtilResult = DiffUtil.calculateDiff(charactersDiffUtil)
         characters = newData.results
         diffUtilResult.dispatchUpdatesTo(this)
     }

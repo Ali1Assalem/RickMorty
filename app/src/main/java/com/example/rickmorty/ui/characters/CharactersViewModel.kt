@@ -25,6 +25,7 @@ class CharactersViewModel @Inject constructor(
     private val repository: Repository,
     application: Application
 ) : AndroidViewModel(application) {
+
     var charactersResponse: MutableLiveData<NetworkResult<CharacterList>> = MutableLiveData()
 
     fun getAllCharacters  () {

@@ -58,7 +58,7 @@
             app:layout_constraintTop_toBottomOf="@+id/name"
             app:layout_constraintBottom_toTopOf="@+id/species_and_status"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="5dp"
             applyStatusColor="@{result.status}"/>
 
 

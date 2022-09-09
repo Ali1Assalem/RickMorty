@@ -4,48 +4,72 @@ import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
 import com.example.rickmorty.data.entities.CharacterList
+import com.example.rickmorty.data.entities.CharactersEntity
 import com.example.rickmorty.data.repoditory.Repository
 import com.example.rickmorty.utils.NetworkResult
-import dagger.hilt.android.internal.Contexts
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import java.lang.Exception
 import javax.inject.Inject
 
-@RequiresApi(Build.VERSION_CODES.M)
 @HiltViewModel
 class CharactersViewModel @Inject constructor(
     private val repository: Repository,
     application: Application
 ) : AndroidViewModel(application) {
 
+
+    //   ROOM
+
+    val readAllCharacters : LiveData<List<CharactersEntity>> = repository.local.readCharacters().asLiveData()
+
+    private fun insertCharacters(charactersEntity: CharactersEntity){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.local.insertCharacters(charactersEntity)
+        }
+    }
+
+
+
+
+    //    RETROFIT
+
     var charactersResponse: MutableLiveData<NetworkResult<CharacterList>> = MutableLiveData()
 
     fun getAllCharacters  () {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             getCharactersSafeCall()
         }
     }
 
     private suspend fun getCharactersSafeCall(){
-        charactersResponse.value = NetworkResult.Loading()
+        charactersResponse.postValue( NetworkResult.Loading())
         if (hasInternetConnection()) {
             try {
-                val response = repository.getAllCharacters()
-                charactersResponse.value = handleGetCharachtersResponse(response)
+                val response = repository.remote.getAllCharacters()
+                charactersResponse.postValue(handleGetCharachtersResponse(response) )
+
+                val charactersList = response.body()
+                if (charactersList != null ){
+                    offlineCacheCharacters(charactersList)
+                }
+
+
             }catch (e:Exception){
-                charactersResponse.value = NetworkResult.Error("Charachters Not Found.")
+                charactersResponse.postValue(NetworkResult.Error("Charachters Not Found."))
             }
         }else {
-            charactersResponse.value = NetworkResult.Error("No Internet Connection.")
+            charactersResponse.postValue( NetworkResult.Error("No Internet Connection."))
         }
+    }
+
+    private fun offlineCacheCharacters(charactersList: CharacterList) {
+        val charactersEntity = CharactersEntity(charactersList)
+        insertCharacters(charactersEntity)
     }
 
 

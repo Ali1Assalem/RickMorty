@@ -1,6 +1,5 @@
 package com.example.rickmorty.ui.characters
 
-import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -11,26 +10,32 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.rickmorty.R
 import com.example.rickmorty.adapter.CharactersRowAdapter
-import com.example.rickmorty.databinding.ActivityMainBinding
 import com.example.rickmorty.databinding.FragmentCharactersBinding
+import com.example.rickmorty.ui.details.CharacterDetailsFragmentArgs
+
 import com.example.rickmorty.utils.NetworkResult
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
-@RequiresApi(Build.VERSION_CODES.M)
 @AndroidEntryPoint
 class CharactersFragment : Fragment() {
 
     private lateinit var charactersViewModel: CharactersViewModel
     private val mAdapter by lazy { CharactersRowAdapter() }
 
-    lateinit var binding: FragmentCharactersBinding
+    private lateinit var binding: FragmentCharactersBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         charactersViewModel = ViewModelProvider(requireActivity()).get(CharactersViewModel::class.java)
+
+
+
     }
 
     override fun onCreateView(
@@ -41,13 +46,31 @@ class CharactersFragment : Fragment() {
         binding = FragmentCharactersBinding.inflate(layoutInflater)
 
 
+
         setupRecyclerView()
-        getAllCharacters()
+        readDatabase()
 
         return binding.root
     }
 
-    private fun getAllCharacters(){
+    private fun readDatabase() {
+        lifecycleScope.launch{
+            charactersViewModel.readAllCharacters.observe(viewLifecycleOwner,{
+                    database ->
+                if (database.isNotEmpty()){
+                    Log.d("CharactersFragment","readDatabase called")
+                    mAdapter.setData(database[0].characterList)
+                    hideShimmerEffect()
+                }else{
+                    requestApiData()
+                }
+            })
+        }
+    }
+
+    private fun requestApiData(){
+        Log.d("CharactersFragment","requestApiData called")
+
         charactersViewModel.getAllCharacters()
         charactersViewModel.charactersResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
@@ -57,6 +80,7 @@ class CharactersFragment : Fragment() {
                 }
                 is NetworkResult.Error -> {
                     hideShimmerEffect()
+                    loadDataFromCache()
                     Toast.makeText(
                         requireContext(),
                         response.message.toString(),
@@ -69,6 +93,17 @@ class CharactersFragment : Fragment() {
             }
         }
     }
+
+    private fun loadDataFromCache(){
+        lifecycleScope.launch {
+            charactersViewModel.readAllCharacters.observe(viewLifecycleOwner, { database ->
+                if (database.isNotEmpty()){
+                    mAdapter.setData(database[0].characterList)
+                }
+            })
+        }
+    }
+
 
     private fun setupRecyclerView() {
         binding.recyclerviewCharacter.adapter = mAdapter

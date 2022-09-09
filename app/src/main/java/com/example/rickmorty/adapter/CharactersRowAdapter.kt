@@ -37,6 +37,8 @@ class CharactersRowAdapter : RecyclerView.Adapter<CharactersRowAdapter.MyViewHol
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentCharacter = characters[position]
         holder.bind(currentCharacter)
+
+
     }
 
     override fun getItemCount(): Int {

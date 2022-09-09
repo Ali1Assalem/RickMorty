@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'kotlin-android'
     id "androidx.navigation.safeargs.kotlin"
     id 'dagger.hilt.android.plugin'
     id 'kotlin-parcelize'
@@ -12,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.rickmorty"
-        minSdk 21
+        minSdk 24
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -67,6 +68,8 @@ dependencies {
     implementation "androidx.room:room-runtime:2.4.3"
     kapt "androidx.room:room-compiler:2.4.3"
     implementation "androidx.room:room-ktx:2.4.3"
+    androidTestImplementation "androidx.room:room-testing:2.4.3"
+
 
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'

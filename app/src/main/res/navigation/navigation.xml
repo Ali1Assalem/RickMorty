@@ -8,16 +8,30 @@
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.example.rickmorty.ui.favorites.FavoritesFragment"
-        android:label="FavoritesFragment"
+        android:label="Favorites"
         tools:layout="@layout/fragment_favorites"/>
     <fragment
         android:id="@+id/charactersFragment"
         android:name="com.example.rickmorty.ui.characters.CharactersFragment"
-        android:label="fragment_characters"
-        tools:layout="@layout/fragment_characters" />
+        android:label="Characters"
+        tools:layout="@layout/fragment_characters" >
+        <action
+            android:id="@+id/action_charactersFragment_to_characterDetailsFragment"
+            app:destination="@id/characterDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/episodesFragment"
         android:name="com.example.rickmorty.ui.episodes.EpisodesFragment"
-        android:label="fragment_episodes"
+        android:label="Episodes"
         tools:layout="@layout/fragment_episodes" />
+    <fragment
+        android:id="@+id/characterDetailsFragment"
+        android:name="com.example.rickmorty.ui.details.CharacterDetailsFragment"
+        android:label="Details"
+        tools:layout="@layout/fragment_character_details">
+    <argument
+        android:name="result"
+        app:argType="com.example.rickmorty.data.entities.Character" />
+    </fragment>
+
 </navigation>

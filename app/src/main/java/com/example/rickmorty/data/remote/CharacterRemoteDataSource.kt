@@ -8,5 +8,6 @@ class CharacterRemoteDataSource @Inject constructor(
 
     suspend fun getAllCharacters() = characterService.getAllCharacters()
     suspend fun getCharacter(id:Int) = characterService.getCharacter(id)
+    suspend fun searchCharacter(name:String) = characterService.searchCharacter(name)
 
 }

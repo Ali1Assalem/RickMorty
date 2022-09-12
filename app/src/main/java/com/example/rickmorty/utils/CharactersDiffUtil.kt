@@ -3,9 +3,9 @@ package com.example.rickmorty.utils
 import androidx.recyclerview.widget.DiffUtil
 import com.example.rickmorty.data.entities.Character
 
-class CharactersDiffUtil(
-    private val oldList: List<Character>,
-    private val newList: List<Character>
+class CharactersDiffUtil<T>(
+    private val oldList: List<T>,
+    private val newList: List<T>
 ): DiffUtil.Callback() {
     override fun getOldListSize(): Int {
         return oldList.size

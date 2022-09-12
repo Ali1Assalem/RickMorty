@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <item
+        android:id="@+id/save_to_favorites_menu"
+        android:icon="@drawable/ic_baseline_star_24"
+        android:title="save_to_favorite"
+        app:showAsAction="ifRoom"
+        android:iconTint="@color/white"
+        tools:targetApi="o"/>
+</menu>

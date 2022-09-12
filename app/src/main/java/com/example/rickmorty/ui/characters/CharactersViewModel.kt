@@ -5,8 +5,10 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import androidx.lifecycle.*
+import com.example.rickmorty.data.entities.Character
 import com.example.rickmorty.data.entities.CharacterList
-import com.example.rickmorty.data.entities.CharactersEntity
+import com.example.rickmorty.data.local.entities.CharactersEntity
+import com.example.rickmorty.data.local.entities.FavoritesEntity
 import com.example.rickmorty.data.repoditory.Repository
 import com.example.rickmorty.utils.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,10 +28,29 @@ class CharactersViewModel @Inject constructor(
     //   ROOM
 
     val readAllCharacters : LiveData<List<CharactersEntity>> = repository.local.readCharacters().asLiveData()
+    val readFavorites : LiveData<List<FavoritesEntity>> = repository.local.readFavorites().asLiveData()
 
-    private fun insertCharacters(charactersEntity: CharactersEntity){
+    fun insertCharacters(charactersEntity: CharactersEntity){
         viewModelScope.launch(Dispatchers.IO) {
             repository.local.insertCharacters(charactersEntity)
+        }
+    }
+
+    fun insertFavorite(favoritesEntity: FavoritesEntity) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.local.insertFavorite(favoritesEntity)
+        }
+    }
+
+    fun deleteFavorite(favoritesEntity: FavoritesEntity) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.local.deleteFavorite(favoritesEntity)
+        }
+    }
+
+    fun deleteAllFavorites(){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.local.deleteAllFavorites()
         }
     }
 
@@ -39,11 +60,16 @@ class CharactersViewModel @Inject constructor(
     //    RETROFIT
 
     var charactersResponse: MutableLiveData<NetworkResult<CharacterList>> = MutableLiveData()
+    var searchedCharactersResponse: MutableLiveData<NetworkResult<CharacterList>> = MutableLiveData()
 
     fun getAllCharacters  () {
         viewModelScope.launch(Dispatchers.IO) {
             getCharactersSafeCall()
         }
+    }
+
+    fun searchCharacters(searchQuery: String) = viewModelScope.launch {
+        searchCharactersSafeCall(searchQuery)
     }
 
     private suspend fun getCharactersSafeCall(){
@@ -70,6 +96,20 @@ class CharactersViewModel @Inject constructor(
     private fun offlineCacheCharacters(charactersList: CharacterList) {
         val charactersEntity = CharactersEntity(charactersList)
         insertCharacters(charactersEntity)
+    }
+
+    suspend fun searchCharactersSafeCall(searchQuery: String) {
+        searchedCharactersResponse.postValue(NetworkResult.Loading())
+        if (hasInternetConnection()) {
+            try {
+                val response = repository.remote.searchCharacter(searchQuery)
+                searchedCharactersResponse.postValue(handleGetCharachtersResponse(response ))
+            } catch (e: Exception) {
+                searchedCharactersResponse.postValue(NetworkResult.Error("Characters not found."))
+            }
+        } else {
+            searchedCharactersResponse.postValue(NetworkResult.Error("No Internet Connection."))
+        }
     }
 
 

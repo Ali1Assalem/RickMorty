@@ -6,7 +6,11 @@ import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import com.example.rickmorty.data.entities.CharacterList
+<<<<<<< HEAD
 import com.example.rickmorty.data.local.entities.CharactersEntity
+=======
+import com.example.rickmorty.data.entities.CharactersEntity
+>>>>>>> origin/master
 import com.example.rickmorty.utils.NetworkResult
 
 class CharactersBinding {
@@ -25,7 +29,11 @@ class CharactersBinding {
                 }
                 is TextView ->{
                     view.isVisible = apiResponse is NetworkResult.Error && database.isNullOrEmpty()
+<<<<<<< HEAD
                     //view.text = apiResponse?.message.toString()
+=======
+                    view.text = apiResponse?.message.toString()
+>>>>>>> origin/master
                 }
             }
         }

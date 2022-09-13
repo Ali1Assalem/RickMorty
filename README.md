@@ -15,6 +15,6 @@ MVVM ,Hilt DI ,LiveData ,Flow ,StateFlow ,Room ,Retrofit ,Coroutine , Navigation
 7. Room
 8. Navigation Components - Safe Args
 9. Retrofit2
-10. Coil
+ 10. Coil
 
 # Screenshots 

@@ -4,7 +4,7 @@ This is a simple app which has been implemented using Clean Architecture alongsi
       Navigation Component ,DataStore ,DataBinding , ViewBinding, Coil  ] <br>  
 Also I used the free API https://rickandmortyapi.com/api the content of app. IT CONTAINS A SINGLE ACTIVITY WITH A SIMPLE UI. And the goal of sharing this code is to have a better understanding of the techniques I mentioned above for newbies.
 
-# Main Features :books
+# Main Features :books:
 1. Kotlin
 2. MVVM - Single Activity Architecture
 3. DataBinding - ViewBinding

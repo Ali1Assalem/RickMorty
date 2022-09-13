@@ -45,6 +45,25 @@ Also I used the free API https://rickandmortyapi.com/api the content of app. IT 
 </p>
 <br>
 
+## Advantages Of Using Single Activity Architecture
+
+ 1. From the name only we can understand that only one Activity will exist in the whole architecture. So, no need to update the Manifest every time. Just once, we have to declare the Navigation graph XML file in the Manifest.
+ 2.  No need to declare the boilerplate method like startActivityForResult() every time as we will navigate between the fragments now and the navigation between the fragments get also simplified with the use of the Navigation Component library included in JetPack. 
+ 3. The transition Animation problem has also been resolved after using the fragments.
+ 4. As all the Fragments will be bounded inside the Activity, we can easily share the data between the fragments. 
+ 5. We might counter incidents like we need to pass information to the fragments. It may consist of nullable data. Manually, if we have to resolve this problem then we have to write several lines of code. But in Navigation Component, Android introduced a feature called “Safe Args Gradle Plug-in”. Builder classes will be generated from this plug-in to assure type-safe access to the arguments for the particular action.
+
+## BENIFITS OF NAVIGATION COMPONENT
+
+[Navigation Architecture Component](https://developer.android.com/codelabs/android-navigation#0) provides a number of benefits, including:
+
+- Automatic handling of fragment transactions
+- Correctly handling up and back by default
+- Default behaviors for animations and transitions
+- Deep linking as a first class operation
+- Implementing navigation UI patterns (like navigation drawers and bottom nav**)** with little additional work
+- Type safety when passing information while navigating
+- Android Studio tooling for visualizing and editing the navigation flow of an app
 
 
 <br>

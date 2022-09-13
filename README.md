@@ -63,7 +63,7 @@ Also I used the free API https://rickandmortyapi.com/api the content of app. IT 
 - Deep linking as a first class operation
 - Implementing navigation UI patterns (like navigation drawers and bottom nav**)** with little additional work
 - Type safety when passing information while navigating
-- Android Studio tooling for visualizing and editing the navigation flow of an app<br>
+- Android Studio tooling for visualizing and editing the navigation flow of an app<br><br><br>
 
 
 ### Author

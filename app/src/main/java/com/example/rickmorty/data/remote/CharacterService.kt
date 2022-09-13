@@ -2,6 +2,7 @@ package com.example.rickmorty.data.remote
 
 import com.example.rickmorty.data.entities.Character
 import com.example.rickmorty.data.entities.CharacterList
+import com.example.rickmorty.data.entities.EpisodesList
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -18,6 +19,8 @@ interface CharacterService {
     @GET("character")
     suspend fun searchCharacter(@Query("name") name: String): Response<CharacterList>
 
+    @GET("episode")
+    suspend fun getAllEpisode(): Response<EpisodesList>
 
 //    @GET("location")
 //    suspend fun getAllLocation(@Query("page") page: Int? = null): LocationDto

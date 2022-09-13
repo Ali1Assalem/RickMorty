@@ -13,8 +13,7 @@ import dagger.hilt.android.HiltAndroidApp
 
 class FavoriteCharactersAdapter: RecyclerView.Adapter<FavoriteCharactersAdapter.MyViewHolder>() {
 
-    private var favoriteEntityList = emptyList<FavoritesEntity>()
-    private lateinit var selectedFavorite : FavoritesEntity
+    var favoriteEntityList = emptyList<FavoritesEntity>()
 
     class MyViewHolder(val binding: FavoriteItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -39,10 +38,10 @@ class FavoriteCharactersAdapter: RecyclerView.Adapter<FavoriteCharactersAdapter.
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        selectedFavorite = favoriteEntityList[position]
+        val selectedFavorite = favoriteEntityList[position]
         holder.bind(selectedFavorite)
 
-        holder.binding.favoriteRowLayout.setOnClickListener{
+        holder.binding.favoriteRowLayout.setOnClickListener {
             val action =
                 FavoritesFragmentDirections.actionFavoritesFragmentToCharacterDetailsFragment(
                     selectedFavorite.character
@@ -55,7 +54,7 @@ class FavoriteCharactersAdapter: RecyclerView.Adapter<FavoriteCharactersAdapter.
         return favoriteEntityList.size
     }
 
-    fun setData(newFavoriteRecipes: List<FavoritesEntity>){
+    fun setData(newFavoriteRecipes: List<FavoritesEntity>) {
         val favoriteRecipesDiffUtil =
             CharactersDiffUtil(favoriteEntityList, newFavoriteRecipes)
         val diffUtilResult = DiffUtil.calculateDiff(favoriteRecipesDiffUtil)
@@ -63,7 +62,4 @@ class FavoriteCharactersAdapter: RecyclerView.Adapter<FavoriteCharactersAdapter.
         diffUtilResult.dispatchUpdatesTo(this)
     }
 
-    fun currentListItem():FavoritesEntity {
-        return selectedFavorite
-    }
 }

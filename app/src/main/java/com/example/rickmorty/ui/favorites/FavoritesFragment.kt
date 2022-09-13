@@ -16,6 +16,7 @@ import com.example.rickmorty.adapter.FavoriteCharactersAdapter
 import com.example.rickmorty.databinding.FragmentCharactersBinding
 import com.example.rickmorty.databinding.FragmentFavoritesBinding
 import com.example.rickmorty.ui.characters.CharactersViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 
@@ -36,8 +37,23 @@ class FavoritesFragment : Fragment() {
             return true
         }
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-            val character = mAdapter.currentListItem()
+            val position= viewHolder.layoutPosition
+            val character = mAdapter.favoriteEntityList[position]
             charactersViewModel.deleteFavorite(character)
+
+            Snackbar.make(
+                requireView(),
+                "${character.character.name} - Removed Successfully",
+                Snackbar.LENGTH_LONG
+            ).apply {
+                setAction(
+                    "Undo"
+                ) {
+                    charactersViewModel.insertFavorite(character)
+                }
+
+                show()
+            }
         }
 
 

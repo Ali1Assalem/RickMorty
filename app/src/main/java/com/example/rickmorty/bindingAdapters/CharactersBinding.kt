@@ -6,11 +6,7 @@ import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import com.example.rickmorty.data.entities.CharacterList
-<<<<<<< HEAD
-import com.example.rickmorty.data.local.entities.CharactersEntity
-=======
-import com.example.rickmorty.data.entities.CharactersEntity
->>>>>>> origin/master
+
 import com.example.rickmorty.utils.NetworkResult
 
 class CharactersBinding {
@@ -21,7 +17,7 @@ class CharactersBinding {
         fun errorImageViewVisibility(
             view: View,
             apiResponse: NetworkResult<CharacterList>?,
-            database: List<CharactersEntity>?
+            database: List<com.example.rickmorty.data.entities.CharactersEntity>?
         ){
             when (view){
                 is ImageView ->{
@@ -29,11 +25,8 @@ class CharactersBinding {
                 }
                 is TextView ->{
                     view.isVisible = apiResponse is NetworkResult.Error && database.isNullOrEmpty()
-<<<<<<< HEAD
                     //view.text = apiResponse?.message.toString()
-=======
-                    view.text = apiResponse?.message.toString()
->>>>>>> origin/master
+                    view.text = apiResponse?.message.toString().plus("¯\\\\_(ツ)_/¯")
                 }
             }
         }

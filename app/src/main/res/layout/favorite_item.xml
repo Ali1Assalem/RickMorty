@@ -22,7 +22,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:scaleType="centerCrop"
-            loadImageFromUrl="@{favoritesEntity.character.status}"
+            loadImageFromUrl="@{favoritesEntity.character.image}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

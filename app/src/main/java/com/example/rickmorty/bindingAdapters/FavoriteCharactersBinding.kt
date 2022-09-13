@@ -1,5 +1,6 @@
 package com.example.rickmorty.bindingAdapters
 
+import android.graphics.Color
 import android.view.View
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible

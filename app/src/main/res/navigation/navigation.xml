@@ -9,7 +9,11 @@
         android:id="@+id/favoritesFragment"
         android:name="com.example.rickmorty.ui.favorites.FavoritesFragment"
         android:label="Favorites"
-        tools:layout="@layout/fragment_favorites"/>
+        tools:layout="@layout/fragment_favorites">
+        <action
+            android:id="@+id/action_favoritesFragment_to_characterDetailsFragment"
+            app:destination="@id/characterDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/charactersFragment"
         android:name="com.example.rickmorty.ui.characters.CharactersFragment"

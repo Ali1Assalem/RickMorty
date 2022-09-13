@@ -3,19 +3,30 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.128" />
+        <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/drawable/arrow.xml" value="0.128" />
         <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/drawable/circle.xml" value="0.1125" />
         <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/drawable/circle_green.xml" value="0.1085" />
+        <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/drawable/ic_arrow_forward.xml" value="0.128" />
         <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/drawable/ic_error_placeholder.xml" value="0.1085" />
+        <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/drawable/ic_launcher_background.xml" value="0.128" />
         <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/drawable/network_connection.xml" value="0.1085" />
         <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/drawable/rectangle_iamge.xml" value="0.1085" />
+        <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/drawable/ripple_effect.xml" value="0.103" />
         <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/layout/activity_main.xml" value="0.2" />
-        <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/layout/fragment_character_details.xml" value="0.4" />
+        <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/layout/episode_item_row.xml" value="0.25" />
+        <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/layout/favorite_item.xml" value="0.1638888888888889" />
+        <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/layout/fragment_character_details.xml" value="0.2" />
         <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/layout/fragment_characters.xml" value="0.1" />
-        <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/layout/fragment_episodes.xml" value="0.184375" />
+        <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/layout/fragment_episodes.xml" value="0.25" />
         <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/layout/fragment_favorites.xml" value="0.184375" />
         <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/layout/item_character.xml" value="0.1" />
         <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/layout/placeholder_row_layout.xml" value="0.25" />
+        <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/layout/placeolde_row_episode_layout.xml" value="0.25" />
         <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/menu/bottom_nav_menu.xml" value="0.2" />
+        <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.128" />
+        <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.128" />
+        <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/mipmap-anydpi-v26/logo_app.xml" value="0.128" />
       </map>
     </option>
   </component>

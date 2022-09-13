@@ -1,9 +1,5 @@
 # RickMorty
-MVVM ,Hilt DI ,LiveData ,Flow ,StateFlow ,Room ,Retrofit ,Coroutine , Navigation Component ,DataStore ,DataBinding , ViewBinding, Coil
-
-# App Architecture 
-<img  src="https://user-images.githubusercontent.com/76838562/173254331-aa79eb39-653b-4a1c-8c65-ad3b337ff368.jpg" width="500">
-
+This is a simple app which implemented using MVVM ,Hilt DI ,LiveData ,Flow ,StateFlow ,Room ,Retrofit ,Coroutine , Navigation Component ,DataStore ,DataBinding , ViewBinding, Coil.  Also I used the free API https://rickandmortyapi.com/api the content of app. IT CONTAINS A SINGLE ACTIVITY WITH A SIMPLE UI. And the goal of sharing this code is to have a better understanding of the techniques I mentioned at the beginning for newbies.
 
 # Main Features
 1. Kotlin

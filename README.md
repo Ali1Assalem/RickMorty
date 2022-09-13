@@ -21,18 +21,13 @@ Also I used the free API https://rickandmortyapi.com/api the content of app. IT 
 
 # Screenshots 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/76838562/185790413-4a54991f-de8e-4869-a2db-a8f0aae50e86.png" width="250"/>
-  <img src="https://user-images.githubusercontent.com/76838562/185790417-c1ddcb6a-791e-4f56-911c-2140cd759ccc.png" width="250"/>
-  <img src="https://user-images.githubusercontent.com/76838562/185790446-30f03824-5673-4ee4-afd0-0586f7822509.png" width="250"/>
+  <img src="https://user-images.githubusercontent.com/76838562/189928370-4eecf56a-8171-43ac-a887-16545d44a11e.png" width="200"/>
+  <img src="https://user-images.githubusercontent.com/76838562/189929024-3a2a7abb-3b76-4074-8c94-0445e0da126d.png" width="200"/>
+  <img src="https://user-images.githubusercontent.com/76838562/189929340-3dcbfb13-a4a2-4c5d-a8cd-5a4fa1f1ece2.png" width="200"/>
+  <img src="https://user-images.githubusercontent.com/76838562/189929398-46b05ac2-da3f-4b29-b2ed-e1058eba809e.png" width="200"/>
+
 </p>
 <br>
-
-
-
-
-
-
-
 
 
 

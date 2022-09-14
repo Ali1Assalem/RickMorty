@@ -15,6 +15,10 @@ import com.example.rickmorty.data.repoditory.Repository
 import com.example.rickmorty.utils.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import javax.inject.Inject
@@ -25,8 +29,20 @@ class EpisodesViewModel @Inject constructor(
     application: Application
 ) : AndroidViewModel(application) {
 
-    val readEpisodes: LiveData<List<EpisodesEntity>> = repository.local.readEpisodes().asLiveData()
-    var episodesResponse: MutableLiveData<NetworkResult<EpisodesList>> = MutableLiveData()
+    private val _readEpisodes = MutableSharedFlow<List<EpisodesEntity>>()
+    val readEpisodes : SharedFlow<List<EpisodesEntity>> = _readEpisodes
+
+    fun fetchEpisodesFromLocal() {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.local.readEpisodes().collect{
+                _readEpisodes.emit(it)
+            }
+        }
+    }
+
+    private var _episodesResponse = MutableSharedFlow<NetworkResult<EpisodesList>>()
+    val episodesResponse : SharedFlow<NetworkResult<EpisodesList>> = _episodesResponse
+
     val characterList = mutableListOf<Character>()
 
     fun getAllEpisodes  () {
@@ -42,11 +58,11 @@ class EpisodesViewModel @Inject constructor(
     }
 
     private suspend fun getEpisodesSafeCall(){
-        episodesResponse.postValue(NetworkResult.Loading())
+        _episodesResponse.emit(NetworkResult.Loading())
         if (hasInternetConnection()){
             try {
                 val response = repository.remote.getAllEpisode()
-                episodesResponse.postValue(handleGetEpisodesResponse(response))
+                _episodesResponse.emit(handleGetEpisodesResponse(response)!!)
 
                 val episodesList = response.body()
                 if (episodesList != null ){
@@ -54,10 +70,10 @@ class EpisodesViewModel @Inject constructor(
                 }
 
             }catch (e:Exception){
-                episodesResponse.postValue(NetworkResult.Error("Episodes Not Found."))
+                _episodesResponse.emit(NetworkResult.Error("Episodes Not Found."))
             }
         }else{
-            episodesResponse.postValue(NetworkResult.Error("No Internet Connection."))
+            _episodesResponse.emit(NetworkResult.Error("No Internet Connection."))
         }
     }
 

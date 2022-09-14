@@ -54,11 +54,11 @@ class FavoriteCharactersAdapter: RecyclerView.Adapter<FavoriteCharactersAdapter.
         return favoriteEntityList.size
     }
 
-    fun setData(newFavoriteRecipes: List<FavoritesEntity>) {
-        val favoriteRecipesDiffUtil =
-            CharactersDiffUtil(favoriteEntityList, newFavoriteRecipes)
-        val diffUtilResult = DiffUtil.calculateDiff(favoriteRecipesDiffUtil)
-        favoriteEntityList = newFavoriteRecipes
+    fun setData(newFavoriteEntities: List<FavoritesEntity>) {
+        val favoriteDiffUtil =
+            CharactersDiffUtil(favoriteEntityList, newFavoriteEntities)
+        val diffUtilResult = DiffUtil.calculateDiff(favoriteDiffUtil)
+        favoriteEntityList = newFavoriteEntities
         diffUtilResult.dispatchUpdatesTo(this)
     }
 

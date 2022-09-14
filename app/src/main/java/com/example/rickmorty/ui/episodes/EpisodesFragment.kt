@@ -17,7 +17,9 @@ import com.example.rickmorty.databinding.FragmentEpisodesBinding
 import com.example.rickmorty.ui.characters.CharactersViewModel
 import com.example.rickmorty.utils.NetworkResult
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class EpisodesFragment : Fragment() {
@@ -53,8 +55,8 @@ class EpisodesFragment : Fragment() {
 
     private fun readEpisodesDatabase() {
         lifecycleScope.launch{
-            episodesViewModel.readEpisodes.observe(viewLifecycleOwner,{
-                    database ->
+            episodesViewModel.fetchEpisodesFromLocal()
+            episodesViewModel.readEpisodes.collect{ database ->
                 if (database.isNotEmpty()){
                     Log.d("EpisodesFragment","readDatabase called")
                     mAdapter.setData(database[0].episodesList)
@@ -62,7 +64,7 @@ class EpisodesFragment : Fragment() {
                 }else{
                     requestApiEpisodesData()
                 }
-            })
+            }
         }
     }
 
@@ -71,38 +73,58 @@ class EpisodesFragment : Fragment() {
         Log.d("EpisodesFragment","requestApiData called")
 
         episodesViewModel.getAllEpisodes()
-        episodesViewModel.episodesResponse.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is NetworkResult.Success -> {
-                    hideShimmerEffect()
-                    response.data?.let { mAdapter.setData(it) }
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            episodesViewModel.episodesResponse.collect { response ->
+                when (response) {
+                    is NetworkResult.Success -> {
+
+                        withContext ((Dispatchers.Main )){
+                            hideShimmerEffect()
+                        }
+
+                        response.data?.let { mAdapter.setData(it) }
+                    }
+                    is NetworkResult.Error -> {
+
+                        withContext ((Dispatchers.Main )){
+                            hideShimmerEffect()
+                        }
+
+                        loadDataFromCache()
+
+                        withContext ((Dispatchers.Main )){
+                            Toast.makeText(
+                                requireContext(),
+                                response.message.toString(),
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+
+                    }
+                    is NetworkResult.Loading -> {
+                        withContext ((Dispatchers.Main )){
+                            showShimmerEffect()
+                        }
+                    }
                 }
-                is NetworkResult.Error -> {
-                    hideShimmerEffect()
-                    loadDataFromCache()
-                    Toast.makeText(
-                        requireContext(),
-                        response.message.toString(),
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-                is NetworkResult.Loading -> {
-                    showShimmerEffect()
+            }
+        }
+
+
+
+    }
+
+    private fun loadDataFromCache(){
+        episodesViewModel.fetchEpisodesFromLocal()
+        lifecycleScope.launch {
+            episodesViewModel.readEpisodes.collect{ database ->
+                if (database.isNotEmpty()){
+                    mAdapter.setData(database[0].episodesList)
                 }
             }
         }
     }
-
-    private fun loadDataFromCache(){
-        lifecycleScope.launch {
-            episodesViewModel.readEpisodes.observe(viewLifecycleOwner, { database ->
-                if (database.isNotEmpty()){
-                    mAdapter.setData(database[0].episodesList)
-                }
-            })
-        }
-    }
-
 
     private fun setupRecyclerView() {
         binding.recyclerviewEpisodes.adapter = mAdapter

@@ -31,6 +31,7 @@ Also I used the free API https://rickandmortyapi.com/api the content of app. IT 
 </p>
 <br>
 
+
 <br>
 <p align="center">
   <img src="https://user-images.githubusercontent.com/76838562/189930121-33055e30-f675-447d-94cc-55182521b9e6.png" width="200"/>

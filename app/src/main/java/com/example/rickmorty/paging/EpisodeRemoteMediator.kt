@@ -9,6 +9,8 @@ import com.example.rickmorty.data.entities.Episode
 import com.example.rickmorty.data.local.CharactersDatabase
 import com.example.rickmorty.data.local.entities.EpisodeRemoteKeys
 import com.example.rickmorty.data.remote.CharacterService
+import retrofit2.HttpException
+import java.io.IOException
 import javax.inject.Inject
 
 @OptIn(ExperimentalPagingApi::class)
@@ -48,10 +50,10 @@ class EpisodeRemoteMediator @Inject constructor (
                 }
 
                 val response = api.getAllEpisode(currentPage)
-                val endOfPaginationReached = response.info.pages == currentPage
+                //val endOfPaginationReached = response.info.pages == currentPage
+                val isEndOfList =
+                    response.results.isEmpty() || response.info.next == null || response.toString().contains("error")
 
-                val prevPage = if(currentPage == 1) null else currentPage -1
-                val nextPage = if(endOfPaginationReached) null else currentPage + 1
 
                 if(response.results.isNotEmpty()){
                     database.withTransaction {
@@ -61,6 +63,8 @@ class EpisodeRemoteMediator @Inject constructor (
                             episodeRemoteKeysDao.deleteAllEpisodeRemoteKeys()
                         }
 
+                        val prevPage = if(currentPage == 1) null else currentPage -1
+                        val nextPage = if(isEndOfList) null else currentPage + 1
 
                         val keys = response.results.map { episode ->
                             EpisodeRemoteKeys(
@@ -74,10 +78,12 @@ class EpisodeRemoteMediator @Inject constructor (
                         episodeRemoteKeysDao.addAllEpisodeRemoteKeys(keys)
                     }
                 }
-                RemoteMediator.MediatorResult.Success(endOfPaginationReached)
+                MediatorResult.Success(endOfPaginationReached = isEndOfList)
             }
-            catch (e: Exception){
-                RemoteMediator.MediatorResult.Error(e)
+            catch (exception: IOException) {
+                return MediatorResult.Error(exception)
+            } catch (exception: HttpException) {
+                return MediatorResult.Error(exception)
             }
         }
 

@@ -24,7 +24,9 @@ class CharacterRemoteDataSource @Inject constructor (
         val pagingSourceFactory = {episodeDao.getEpisodes()}
         return Pager(
             config = PagingConfig(
-                pageSize = 25,
+                pageSize = 16,
+                prefetchDistance = 2,
+                initialLoadSize = 24,
                 enablePlaceholders = false
             ),
             //pagingSourceFactory = { EpisodesPagingSource(characterService) }

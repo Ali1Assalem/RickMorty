@@ -1,139 +1,104 @@
 package com.example.rickmorty.ui.episodes
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.ExperimentalPagingApi
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.rickmorty.R
-import com.example.rickmorty.adapter.CharactersRowAdapter
-import com.example.rickmorty.adapter.EpisodesRowAdapter
-import com.example.rickmorty.databinding.FragmentEpisodesBinding
+import com.example.rickmorty.adapter.EpisodesPagingAdapter
+import com.example.rickmorty.paging.EpisodeLoaderAdapter
 import com.example.rickmorty.ui.characters.CharactersViewModel
-import com.example.rickmorty.utils.NetworkResult
+import com.example.rickmorty.utils.Util
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import android.os.Parcelable
+import android.widget.Toast
+import androidx.paging.CombinedLoadStates
+import androidx.paging.LoadState
+import com.example.rickmorty.databinding.FragmentEpisodesBinding
+import kotlinx.coroutines.flow.collectLatest
 
+
+@OptIn(ExperimentalPagingApi::class)
 @AndroidEntryPoint
 class EpisodesFragment : Fragment() {
 
-    private lateinit var binding : FragmentEpisodesBinding
+    private var _binding: FragmentEpisodesBinding? = null
+    private val binding get() = _binding!!
+
     private lateinit var charactersViewModel: CharactersViewModel
     private lateinit var episodesViewModel: EpisodesViewModel
 
-    private val mAdapter by lazy { EpisodesRowAdapter() }
+    lateinit var adapter: EpisodesPagingAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         charactersViewModel = ViewModelProvider(requireActivity()).get(CharactersViewModel::class.java)
         episodesViewModel = ViewModelProvider(requireActivity()).get(EpisodesViewModel::class.java)
+
+        adapter=EpisodesPagingAdapter()
+
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentEpisodesBinding.inflate(layoutInflater)
+    ): View {
+        _binding = FragmentEpisodesBinding.inflate(layoutInflater)
 
         binding.lifecycleOwner = this
         binding.characterViewModel = charactersViewModel
-        binding.episodesViewModel = episodesViewModel
 
         setupRecyclerView()
 
-        readEpisodesDatabase()
+
+        lifecycleScope.launch {
+            adapter.loadStateFlow.collect {
+                Util.loadingState(
+                    it,
+                    binding.lottieAnimationView,
+                    binding.shimmerLoading,
+                    binding.refreshBtn,
+                    true,
+                    adapter
+                )
+            }
+        }
+
+        lifecycleScope.launch{
+            episodesViewModel.list.collectLatest {
+                adapter.submitData(lifecycle, it)
+            }
+        }
+
+        binding.refreshBtn.setOnClickListener {
+            adapter.retry()
+        }
 
         return binding.root
     }
 
 
-    private fun readEpisodesDatabase() {
-        lifecycleScope.launch{
-            episodesViewModel.fetchEpisodesFromLocal()
-            episodesViewModel.readEpisodes.collect{ database ->
-                if (database.isNotEmpty()){
-                    Log.d("EpisodesFragment","readDatabase called")
-                    mAdapter.setData(database[0].episodesList)
-                    hideShimmerEffect()
-                }else{
-                    requestApiEpisodesData()
-                }
-            }
-        }
-    }
-
-
-    private fun requestApiEpisodesData(){
-        Log.d("EpisodesFragment","requestApiData called")
-
-        episodesViewModel.getAllEpisodes()
-
-        lifecycleScope.launch(Dispatchers.IO) {
-            episodesViewModel.episodesResponse.collect { response ->
-                when (response) {
-                    is NetworkResult.Success -> {
-
-                        withContext ((Dispatchers.Main )){
-                            hideShimmerEffect()
-                        }
-
-                        response.data?.let { mAdapter.setData(it) }
-                    }
-                    is NetworkResult.Error -> {
-
-                        withContext ((Dispatchers.Main )){
-                            hideShimmerEffect()
-                        }
-
-                        loadDataFromCache()
-                        Toast.makeText(
-                            requireContext(),
-                            response.message.toString(),
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
-                    is NetworkResult.Loading -> {
-                        withContext ((Dispatchers.Main )){
-                            showShimmerEffect()
-                        }
-                    }
-                }
-            }
-        }
-
-
-
-    }
-
-    private fun loadDataFromCache(){
-        episodesViewModel.fetchEpisodesFromLocal()
-        lifecycleScope.launch {
-            episodesViewModel.readEpisodes.collect{ database ->
-                if (database.isNotEmpty()){
-                    mAdapter.setData(database[0].episodesList)
-                }
-            }
-        }
-    }
-
     private fun setupRecyclerView() {
-        binding.recyclerviewEpisodes.adapter = mAdapter
+
+        binding.recyclerviewEpisodes.adapter = adapter.withLoadStateHeaderAndFooter(
+            header = EpisodeLoaderAdapter { adapter.retry() },
+            footer = EpisodeLoaderAdapter { adapter.retry() }
+        )
+
         binding.recyclerviewEpisodes.layoutManager = LinearLayoutManager(requireContext())
-        showShimmerEffect()
+        binding.recyclerviewEpisodes.setHasFixedSize(true)
+        binding.recyclerviewEpisodes.scrollToPosition(0)
     }
 
-    private fun showShimmerEffect() {
-        binding.recyclerviewEpisodes.showShimmer()
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
-    private fun hideShimmerEffect() {
-        binding.recyclerviewEpisodes.hideShimmer()
-    }
 
 }

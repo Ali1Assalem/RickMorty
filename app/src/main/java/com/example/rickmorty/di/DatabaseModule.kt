@@ -24,10 +24,19 @@ object DatabaseModule {
         context,
         CharactersDatabase::class.java,
         Constants.DATABASE_NAME
-    ).build()
+    )
+        .fallbackToDestructiveMigration()
+    .build()
 
     @Singleton
     @Provides
-    fun provideDao(database: CharactersDatabase) = database.characterDao()
+    fun provideCharactersDao(database: CharactersDatabase) = database.characterDao()
 
+    @Singleton
+    @Provides
+    fun provideEpisodeDao(database: CharactersDatabase) = database.episodeDao()
+
+    @Singleton
+    @Provides
+    fun provideEpisodeRemoteKeysDao(database: CharactersDatabase) = database.episodeRemoteKeysDao()
 }

@@ -33,14 +33,4 @@ class CharactersTypeConverter {
         return gson.fromJson(data,lisType)
     }
 
-    @TypeConverter
-    fun episodesListToString(episodesList: EpisodesList): String {
-        return gson.toJson(episodesList)
-    }
-
-    @TypeConverter
-    fun StringToEpisodesList(data : String) : EpisodesList {
-        val lisType = object : TypeToken<EpisodesList>() {}.type
-        return gson.fromJson(data,lisType)
-    }
 }

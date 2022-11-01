@@ -23,7 +23,7 @@
             android:layout_height="match_parent">
 
             <com.todkars.shimmer.ShimmerRecyclerView
-                android:id="@+id/recyclerview_episodes"
+                android:id="@+id/shimmer_loading"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="8dp"
@@ -37,38 +37,44 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview_episodes"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/error_imageView"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:alpha="0.5"
-                android:visibility="invisible"
-                android:src="@drawable/network_connection"
-                readDatabase="@{characterViewModel.readAllCharacters}"
-                readApiResponse="@{characterViewModel.charactersResponse}"
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottieAnimationView"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:clickable="false"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.37" />
+                app:layout_constraintTop_toTopOf="@+id/recyclerview_episodes"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="no-internet.json"
+                app:lottie_loop="true" />
 
-            <TextView
-                android:id="@+id/error_textView"
+            <Button
+                android:id="@+id/refreshBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:alpha="0.5"
-                android:text="No Internet Connection  ¯\\_(ツ)_/¯"
-                android:textColor="@color/black"
-                android:fontFamily="@font/ubuntu_medium"
-                readDatabase="@{characterViewModel.readAllCharacters}"
-                readApiResponse="@{characterViewModel.charactersResponse}"
-                android:visibility="invisible"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="@+id/error_imageView"
-                app:layout_constraintStart_toStartOf="@+id/error_imageView"
-                app:layout_constraintTop_toBottomOf="@+id/error_imageView" />
+                android:text="Retry"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="@+id/lottieAnimationView"
+                app:layout_constraintStart_toStartOf="@+id/lottieAnimationView"
+                app:layout_constraintTop_toBottomOf="@+id/lottieAnimationView" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

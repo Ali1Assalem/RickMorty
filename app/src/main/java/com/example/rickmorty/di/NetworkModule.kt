@@ -1,5 +1,6 @@
 package com.example.rickmorty.di
 
+import com.example.rickmorty.data.local.CharactersDatabase
 import com.example.rickmorty.data.remote.CharacterRemoteDataSource
 import com.example.rickmorty.data.remote.CharacterService
 import com.google.gson.Gson
@@ -39,8 +40,8 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideCharacterRemoteDataSource(characterService: CharacterService) : CharacterRemoteDataSource {
-        return CharacterRemoteDataSource(characterService)
+    fun provideCharacterRemoteDataSource(characterService: CharacterService,charactersDatabase: CharactersDatabase) : CharacterRemoteDataSource {
+        return CharacterRemoteDataSource(characterService,charactersDatabase)
     }
 
 }

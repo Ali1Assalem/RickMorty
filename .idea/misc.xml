@@ -13,14 +13,15 @@
         <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/drawable/network_connection.xml" value="0.1085" />
         <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/drawable/rectangle_iamge.xml" value="0.1085" />
         <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/drawable/ripple_effect.xml" value="0.103" />
-        <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/layout/episode_item_row.xml" value="0.25" />
         <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/layout/favorite_item.xml" value="0.1638888888888889" />
         <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/layout/fragment_character_details.xml" value="0.2" />
         <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/layout/fragment_characters.xml" value="0.1" />
-        <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/layout/fragment_episodes.xml" value="0.25" />
+        <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/layout/fragment_episodes.xml" value="0.2" />
         <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/layout/fragment_favorites.xml" value="0.184375" />
         <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/layout/item_character.xml" value="0.1" />
+        <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/layout/loader_episodes_item.xml" value="0.25" />
         <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/layout/placeholder_row_layout.xml" value="0.25" />
         <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/layout/placeolde_row_episode_layout.xml" value="0.25" />
         <entry key="..\:/Users/ALI/AndroidStudioProjects/RickMorty/app/src/main/res/menu/bottom_nav_menu.xml" value="0.2" />

@@ -31,19 +31,26 @@ Also I used the free API https://rickandmortyapi.com/api the content of app. IT 
 </p>
 <br>
 
-
 <br>
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/76838562/189930121-33055e30-f675-447d-94cc-55182521b9e6.png" width="200"/>
-  <img src="https://user-images.githubusercontent.com/76838562/189930190-647e84b3-57a1-45f3-bfcc-26aa162032c0.png" width="200"/>
+  <img src="https://user-images.githubusercontent.com/76838562/199320526-2a73da12-c7cb-45fb-8320-baf5e4c1d462.png" width="200"/>
+  <img src="https://user-images.githubusercontent.com/76838562/199320551-1e9c7bb9-246a-4882-b73f-c54949b097f4.png" width="200"/>
+  <img src="https://user-images.githubusercontent.com/76838562/199320695-405991dd-f2ab-40f1-a43c-b702fc9d39b9.png" width="200"/>
   <img src="https://user-images.githubusercontent.com/76838562/189930434-da4274b9-4e39-4c24-9026-4f2ea6a22cf5.png" width="200"/>
-  <img src="https://user-images.githubusercontent.com/76838562/189930481-ac81d32b-e3c0-4f51-ba8c-a62c0f9740f9.png" width="200"/>
 </p>
 <br>
 
 <br>
 <p align="center">
+  <img src="https://user-images.githubusercontent.com/76838562/189930121-33055e30-f675-447d-94cc-55182521b9e6.png" width="200"/>
+  <img src="https://user-images.githubusercontent.com/76838562/189930190-647e84b3-57a1-45f3-bfcc-26aa162032c0.png" width="200"/>
+  <img src="https://user-images.githubusercontent.com/76838562/189930481-ac81d32b-e3c0-4f51-ba8c-a62c0f9740f9.png" width="200"/>
   <img src="https://user-images.githubusercontent.com/76838562/189930961-047ba524-b1c6-457c-bfdc-529ca900a6a0.png" width="200"/>
+</p>
+<br>
+
+<br>
+<p align="center">
   <img src="https://user-images.githubusercontent.com/76838562/189931031-45bee429-312e-4369-bbd0-a6a1c5b68995.png" width="200"/>
   <img src="https://user-images.githubusercontent.com/76838562/189931226-fadb404b-2f76-479f-8835-369937112c3e.png" width="200"/>
 </p>

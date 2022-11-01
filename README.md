@@ -11,10 +11,11 @@ Also I used the free API https://rickandmortyapi.com/api the content of app. IT 
 4. Flow - LiveData
 5. Coroutine
 6. Hilt DI
-7. Room
-8. Navigation Components - Safe Args
-9. Retrofit2
- 10. Coil
+7. Paging3 , RemoteMediator
+8. Room
+9. Navigation Components - Safe Args
+10. Retrofit2
+ 11. Coil
 
 # App Architecture 
 <p align="center">
